@@ -99,13 +99,22 @@ addInput :: Integer -> IntcodeComputer -> IntcodeComputer
 addInput input computer = computer { inputs = input:inputs computer }
 
 addOutput :: Integer -> IntcodeComputer -> IntcodeComputer
-addOutput output computer = computer { outputs = output:outputs computer }
+addOutput output computer = computer { outputs = output:outputs computer, state = Output }
+
+evaluateUntilOutput :: IntcodeComputer -> IntcodeComputer
+evaluateUntilOutput computer = let next = evaluate computer
+                               in case state next of
+                                    Halt      -> next
+                                    NeedInput -> error "Need input"
+                                    Output    -> next
+                                    _         -> evaluateUntilOutput next
 
 evaluate :: IntcodeComputer -> IntcodeComputer
-evaluate computer =
-     let (m3, m2, m1, opCode) = decodeOpCode (getMemValue (memory computer) (eix computer))
-         (_, opArg) = splitAt (fromInteger (eix computer) + 1) (memory computer)
+evaluate computer' =
+     let (m3, m2, m1, opCode) = decodeOpCode (getMemValue (memory computer') (eix computer'))
+         (_, opArg) = splitAt (fromInteger (eix computer') + 1) (memory computer')
          opArgs = zip [m1, m2, m3] opArg
+         computer = computer' { state = Running }
      in case opCode of
         -- Add
         1 -> evaluateOp opArgs (+) computer
