@@ -2,20 +2,14 @@
 
 Learning gleam through advent of code 2021.
 
-## Quick start
+## Get toolchain:
 
 ```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-gleam shell # Run an Erlang shell
+nix-shell
 ```
 
-## Installation
+## Run solutions:
 
-If available on Hex this package can be installed by adding `aoc2021`
-to your `gleam.toml` dependencies:
-
-```toml
-[dependencies]
-aoc2021 = "~> 0.1"
+```sh
+echo 'day01:solve("./puzzles/01.txt").' | gleam shell
 ```
