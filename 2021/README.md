@@ -11,5 +11,5 @@ nix-shell
 ## Run solutions:
 
 ```sh
-echo 'day01:solve("./puzzles/01.txt").' | gleam shell
+echo 'day01:solve("./inputs/01.txt").' | gleam shell
 ```
