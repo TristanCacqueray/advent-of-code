@@ -12,4 +12,5 @@ nix-shell
 
 ```sh
 echo 'day01:solve("./inputs/01.txt").' | gleam shell
+echo 'day06:solve("./inputs/06.txt", 256).' | gleam shell
 ```
